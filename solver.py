@@ -1,6 +1,7 @@
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
 
+# states for matrix
 enqueued = 0
 visited = 1
 
@@ -12,6 +13,7 @@ class Solve:
         self._free = free
         self._startValue = startValue
         self._endValue = endValue
+        # i implemented a queue using a list, because i will need it later into shortest path algorithm
         self._pos = 0
         self._queue = [(startValue, -1, 0)]
         self.isThereAPath = False
@@ -20,7 +22,9 @@ class Solve:
             self._distMatrix[i] = [-1]* nCols
     def canWork(self):
         if self._pos >= len(self._queue):
-            print("E fals")
+            print("The algorithm is done, you can't do anything anymore, see the shortest path if it exists")
+            if (self._pos == len(self._queue)):
+                print("\tPS: there is no path, don't try")
             return False
         else:
             actual = self._queue[self._pos]

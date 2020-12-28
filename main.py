@@ -18,20 +18,20 @@ def getMousePos():
 
 if __name__ == '__main__':
     m = maze.Maze(rows, columns, screen, font)
-    running = True
+    # algorith states
+    running = True # state for app window
+    # state for algorithm runnin
     space = False
+    algoritmNeAplicat = True
+    # states for drawing
     drawOn = False
     erase = False
     pickStart = False
     pickEnd = False
-    algoritmNeAplicat = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    space = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 2:
                     m.initializeMatrix()
@@ -51,32 +51,32 @@ if __name__ == '__main__':
             elif event.type == pygame.MOUSEBUTTONUP:
                 drawOn = False
             if event.type == pygame.KEYDOWN:
-                drawOn = False
+                drawOn = False # you can't draw while you pick the starting point and ending point
                 pickStart = pickEnd = False
                 if event.key == pygame.K_s:
                     pickStart = True
                 elif event.key == pygame.K_e:
                     pickEnd = True
                 elif event.key == pygame.K_SPACE:
+                    space = True # if you press space, the algorithm starts
                     if algoritmNeAplicat:
-                        if (m.canStart()):
+                        if (m.canStart()): # canStart() is true if you fixed the starting point and ending point
                             m.startSolve()
-                            while(m.continueSolve()):
-                                m.showMatrix()
+                            while(m.continueSolve()): # can continue is true iff you can apply LEE/BFS algorithm (the queue isn't empty or you didn't reached the ending point)
                                 pygame.display.update()
-                        algoritmNeAplicat = False
+                        algoritmNeAplicat = False # you can't draw anymore after you ran the algorithm
                     else:
-                        m.minPath()
+                        m.minPath() # if the algorithm was applied, now you can draw the minimum path
                         pygame.display.update()
                 elif event.key == pygame.K_g:
-                    m.saveMatrix()
+                    m.saveMatrix() # the key g saves the drawed map on secondary memory
                 elif event.key == pygame.K_f:
                     algoritmNeAplicat = True
-                    m.getMatrixFromFile()
+                    m.getMatrixFromFile() # if you press f, the algorithm restart with map from map.txt
             elif event.type == pygame.KEYUP:
                 pickStart = False
                 pickEnd = False
-        if algoritmNeAplicat:
+        if algoritmNeAplicat: # you can t draw while algorithm is working, this is just for lock drawing mode
             if drawOn:
                 if erase:
                     m.erase(*getMousePos())
