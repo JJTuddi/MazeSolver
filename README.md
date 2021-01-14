@@ -1,5 +1,12 @@
-#MazeSolver
-To run the program you need to set the starting and ending points
+## MazeSolver
+
+# To run the program you need to set the starting and ending points
+
+![](1.png)
+![](2.png)
+![](3.png)
+![](4.png)
+![](5.png)
 
 To set the starting point, press key "S" and click on a water square
 Same for ending point, but the key is "E"
